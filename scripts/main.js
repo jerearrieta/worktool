@@ -7,30 +7,22 @@ Vue.createApp({
     };
   },
   created() {
-    //capturo lo que esta en localstorage
     this.mensajesEnStorage = JSON.parse(localStorage.getItem("mensajes"));
     if (this.mensajesEnStorage) {
       this.mensajesGuardados = this.mensajesEnStorage;
     }
-  },
-  mounted() {
-    // Inicializa Dragula
-    const drake = dragula([document.querySelector("section")]);
-
-    // Escucha el evento drop y actualiza el almacenamiento local con los mensajes reordenados
-    drake.on("drop", () => {
-      // Actualiza los mensajes guardados con los elementos en el orden actual
-      let nuevosMensajes = [];
-      document.querySelectorAll("section .mensaje").forEach((mensaje) => {
-        nuevosMensajes.push({
-          titulo: mensaje.querySelector("strong").innerText,
-          mensaje: mensaje.querySelector(".msg").innerText,
-        });
+    this.$nextTick(() => {
+      new Sortable(document.querySelector("section"), {
+        animation: 150,
+        onEnd: (evt) => {
+          let itemMoved = this.mensajesGuardados.splice(evt.oldIndex, 1)[0];
+          this.mensajesGuardados.splice(evt.newIndex, 0, itemMoved);
+          localStorage.setItem(
+            "mensajes",
+            JSON.stringify(this.mensajesGuardados)
+          );
+        },
       });
-      this.mensajesGuardados = nuevosMensajes;
-
-      // Guarda los mensajes reordenados en el almacenamiento local
-      localStorage.setItem("mensajes", JSON.stringify(this.mensajesGuardados));
     });
   },
   methods: {
