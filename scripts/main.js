@@ -112,13 +112,21 @@ Vue.createApp({
         button.style.backgroundColor = "#8e795a";
         button.classList.remove("hover-effect-background1");
         button.classList.add("hover-effect-default");
+        localStorage.setItem("selectedBackground", "default");
       } else if (newValue === "background1") {
         document.body.style.backgroundImage = "url('./images/negro.jpeg')";
         button.style.backgroundColor = "#6e53d6";
         button.classList.remove("hover-effect-default");
         button.classList.add("hover-effect-background1");
+        localStorage.setItem("selectedBackground", "background1");
       }
     },
+  },
+  mounted() {
+    const selectedBackground = localStorage.getItem("selectedBackground");
+    if (selectedBackground) {
+      this.selectedBackground = selectedBackground;
+    }
   },
   computed: {},
 }).mount("#app");
