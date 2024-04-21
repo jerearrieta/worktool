@@ -4,6 +4,7 @@ Vue.createApp({
       mensajesEnStorage: [],
       mensajesGuardados: [],
       mensajeCapturado: {},
+      selectedBackground: "default",
     };
   },
   created() {
@@ -101,6 +102,22 @@ Vue.createApp({
         timer: 900,
         width: 200,
       });
+    },
+  },
+  watch: {
+    selectedBackground(newValue) {
+      const button = document.querySelector("#create button");
+      if (newValue === "default") {
+        document.body.style.backgroundImage = "url('./images/billie.jpg')";
+        button.style.backgroundColor = "#8e795a";
+        button.classList.remove("hover-effect-background1");
+        button.classList.add("hover-effect-default");
+      } else if (newValue === "background1") {
+        document.body.style.backgroundImage = "url('./images/negro.jpeg')";
+        button.style.backgroundColor = "#6e53d6";
+        button.classList.remove("hover-effect-default");
+        button.classList.add("hover-effect-background1");
+      }
     },
   },
   computed: {},

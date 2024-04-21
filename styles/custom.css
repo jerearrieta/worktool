@@ -230,6 +230,14 @@ strong {
   right: 0;
 }
 
+#create button.hover-effect-default:after {
+  background-color: #2f251b;
+}
+
+#create button.hover-effect-background1:after {
+  background-color: #1f173d;
+}
+
 #create button:hover::after {
   right: auto;
   left: 0;
@@ -249,10 +257,23 @@ strong {
   transition: all 0.3s ease-in-out;
 }
 
+.background-selector {
+  position: absolute;
+  left: 90%;
+  top: 3.4%;
+}
+
+.selector {
+  border-radius: 5px;
+}
+
 #create button:hover span {
   color: #fff;
   animation: scaleUp 0.3s ease-in-out;
 }
+
+
+
 
 @keyframes scaleUp {
   0% {

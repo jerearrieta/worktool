@@ -30,6 +30,7 @@
           </button>
         </div>
       </div>
+      <div></div>
       <section>
         <div class="button mensaje" v-for="mensaje in mensajesGuardados">
           <div @click="copiarMensaje(mensaje)" class="msg">
@@ -43,6 +44,11 @@
           ></i>
         </div>
       </section>
+      <div class="background-selector">
+        <select class="selector" v-model="selectedBackground">
+          <option value="default">Billie</option>
+          <option value="background1">Negro</option>
+        </select>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/SortableJS/Sortable@1.10.2/Sortable.min.js"></script>
