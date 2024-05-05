@@ -343,3 +343,8 @@ section {
   display: flex;
   justify-content: center;
 }
+
+.bi-pencil {
+  padding-right: 0.5rem;
+  padding-left: 0.2rem;
+}

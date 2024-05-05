@@ -103,18 +103,50 @@ Vue.createApp({
         width: 200,
       });
     },
+    editarMensaje(mensaje) {
+      Swal.fire({
+        title: "Edit Message",
+        html:
+          '<div class="form-sweet"> <h3>Title</h2> <input id="swal-input1" type="text" class="swal2-input" value="' + mensaje.titulo + '">' +
+          ' <h3>Content</h2> <textarea id="swal-input2" type="textarea" class="swal2-input">' + mensaje.mensaje + '</textarea></div>',
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        cancelButtonText: "Cancel",
+        preConfirm: () => {
+          return [
+            document.getElementById("swal-input1").value,
+            document.getElementById("swal-input2").value,
+          ];
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          mensaje.titulo = document.getElementById("swal-input1").value;
+          mensaje.mensaje = document.getElementById("swal-input2").value;
+    
+          localStorage.setItem(
+            "mensajes",
+            JSON.stringify(this.mensajesGuardados)
+          );
+    
+          Swal.fire("Saved!", "", "success");
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    },
   },
   watch: {
     selectedBackground(newValue) {
       const button = document.querySelector("#create button");
       if (newValue === "default") {
-        document.body.style.backgroundImage = "url('./images/billie.jpg')";
+        document.body.style.backgroundImage = "url('./images/billie.webp')";
         button.style.backgroundColor = "#8e795a";
         button.classList.remove("hover-effect-background1");
         button.classList.add("hover-effect-default");
         localStorage.setItem("selectedBackground", "default");
       } else if (newValue === "background1") {
-        document.body.style.backgroundImage = "url('./images/negro.jpeg')";
+        document.body.style.backgroundImage = "url('./images/negro.webp')";
         button.style.backgroundColor = "#6e53d6";
         button.classList.remove("hover-effect-default");
         button.classList.add("hover-effect-background1");
